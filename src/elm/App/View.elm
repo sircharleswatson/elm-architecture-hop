@@ -7,6 +7,8 @@ import App.Model exposing (Model)
 import App.Page as Page
 import App.Update exposing (Action)
 
+import Pages.Counter.View as CounterPage
+
 
 -- VIEW
 
@@ -24,3 +26,5 @@ mainContent address model =
       div [] [
         text "Main"
       ]
+    Page.Counter ->
+      CounterPage.view (Signal.forwardTo address App.Update.CounterAction) model.counter

@@ -9,6 +9,7 @@ import App.Page as Page
 type Action
   = HopAction Hop.Action
   | ShowMain Hop.Payload
+  | ShowCounter Hop.Payload
   | ShowNotFound Hop.Payload
 
 
@@ -16,6 +17,9 @@ update action model =
   case action of
     ShowMain payload ->
       ({ model | currentPage = Page.Main, routerPayload = payload }, Effects.none)
+
+    ShowCounter payload ->
+      ({ model | currentPage = Page.Counter, routerPayload = payload }, Effects.none)
 
     _ ->
       (model, Effects.none)
@@ -31,4 +35,7 @@ router =
 
 routes : List (String, Hop.Payload -> Action)
 routes =
-  [ ("/", ShowMain) ]
+  [ ("/", ShowMain)
+  , ("/counter", ShowCounter)
+  , ("/test", ShowNotFound)
+  ]
