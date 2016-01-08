@@ -11,6 +11,7 @@ import App.Update exposing (Action)
 import Router.Update
 
 import Pages.Counter.View as CounterPage
+import Pages.CounterPair.View as CounterPairPage
 
 
 -- VIEW
@@ -47,6 +48,8 @@ navContent address model =
               [ text "Home"]
           , a [ onClick routerAction (navigateTo "/counter"), classList (activeClass Page.Counter) ]
               [ text "Counter"]
+          , a [ onClick routerAction (navigateTo "/counter-pair"), classList (activeClass Page.CounterPair) ]
+              [ text "CounterPair"]
           ]
       ]
 
@@ -58,12 +61,20 @@ mainContent address model =
       div [] [
         text "Main"
       ]
+
     Page.Counter ->
       let
         counterPageAddress =
           Signal.forwardTo address App.Update.CounterAction
       in
         CounterPage.view counterPageAddress model.counter
+
+    Page.CounterPair ->
+      let
+        counterPairPageAddress =
+          Signal.forwardTo address App.Update.CounterPair
+      in    
+        CounterPairPage.view counterPairPageAddress model.counterPair
 
 
 appState : Signal.Address Action -> Model -> Html
@@ -72,6 +83,10 @@ appState address model =
     [ h2 [ class "ui header" ] [ text "App State" ]
     , code []
       [ pre [] [ text ("counter = " ++ (toString model.counter)) ]
+      , pre [] [ text ("counterPair = {") ]
+      , pre [] [ text ("  topCounter = " ++ (toString model.counterPair.topCounter)) ]
+      , pre [] [ text ("  bottomCounter = " ++ (toString model.counterPair.bottomCounter)) ]
+      , pre [] [ text ("}") ]
       , pre [] [ text ("router = {") ]
       , pre [] [ text ("  currentPage = " ++ (toString model.router.currentPage)) ]
       , pre [] [ text ("}") ]

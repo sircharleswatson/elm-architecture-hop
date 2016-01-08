@@ -11,6 +11,7 @@ type Action
   | NavigateTo String
   | ShowMain Hop.Payload
   | ShowCounter Hop.Payload
+  | ShowCounterPair Hop.Payload
   | ShowNotFound Hop.Payload
 
 
@@ -24,6 +25,9 @@ update action model =
 
     ShowCounter payload ->
       ({ model | currentPage = Page.Counter, routerPayload = payload }, Effects.none)
+
+    ShowCounterPair payload ->
+      ({ model | currentPage = Page.CounterPair, routerPayload = payload }, Effects.none)
 
     _ ->
       (model, Effects.none)
@@ -41,5 +45,5 @@ routes : List (String, Hop.Payload -> Action)
 routes =
   [ ("/", ShowMain)
   , ("/counter", ShowCounter)
-  , ("/test", ShowNotFound)
+  , ("/counter-pair", ShowCounterPair)
   ]
