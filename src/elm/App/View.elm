@@ -27,4 +27,8 @@ mainContent address model =
         text "Main"
       ]
     Page.Counter ->
-      CounterPage.view (Signal.forwardTo address App.Update.CounterAction) model.counter
+      let
+        counterPageAddress =
+          Signal.forwardTo address App.Update.CounterAction
+      in
+        CounterPage.view counterPageAddress model.counter

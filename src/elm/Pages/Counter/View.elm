@@ -10,12 +10,13 @@ import Counter.View as Counter exposing (view)
 view : Signal.Address Action -> Model -> Html
 view address model =
   let
-    counter = Pages.Counter.Update.Counter
+    counterAddress = 
+      Signal.forwardTo address Pages.Counter.Update.Counter
   in
     div []
       [ div []
           [ h1 [] [ text "Counter" ]
           ]
       , div []
-          [ Counter.view (Signal.forwardTo address counter) model ]
+          [ Counter.view counterAddress model ]
       ]

@@ -11,5 +11,5 @@ type Action
 update : Action -> Model -> Model
 update action model =
   case action of
-    Counter act ->
-      Counter.update act model
+    Counter counterAction ->
+      Counter.update counterAction model
