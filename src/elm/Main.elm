@@ -33,3 +33,7 @@ port tasks : Signal (Task Never ())
 port tasks =
   app.tasks
 
+
+port routeRunTask : Task () ()
+port routeRunTask =
+  router.run
