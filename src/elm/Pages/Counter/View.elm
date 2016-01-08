@@ -1,6 +1,7 @@
 module Pages.Counter.View where
 
 import Html exposing (..)
+import Html.Attributes exposing (class)
 
 import Counter.Model exposing (Model)
 import Pages.Counter.Update exposing (Action)
