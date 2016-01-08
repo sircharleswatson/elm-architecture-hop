@@ -18,7 +18,7 @@ writefile( './dist/index.html', indexHtml );
 
 // common webpack config
 var commonConfig = {
-  entry: './src/index.js',
+  entry: ['./src/index.js', './src/assets/css/semantic.css'],
 
   output: {
     path:     './dist',
@@ -69,6 +69,10 @@ if ( TARGET_ENV === 'dev' ) {
             'autoprefixer-loader?browsers=last 2 versions',
             'sass-loader'
           ]
+        },
+        {
+          test: /\.(png|svg|woff|woff2|ttf|eot)$/,
+          loader: "url-loader"
         }
       ]
     }
