@@ -8,6 +8,7 @@ import App.Page as Page
 
 type Action
   = HopAction Hop.Action
+  | NavigateTo String
   | ShowMain Hop.Payload
   | ShowCounter Hop.Payload
   | ShowNotFound Hop.Payload
@@ -15,6 +16,9 @@ type Action
 
 update action model =
   case action of
+    NavigateTo path ->
+      (model, Effects.map HopAction (Hop.navigateTo path))
+      
     ShowMain payload ->
       ({ model | currentPage = Page.Main, routerPayload = payload }, Effects.none)
 
