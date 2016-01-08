@@ -93,6 +93,10 @@ if ( TARGET_ENV === 'prod' ) {
             'autoprefixer-loader?browsers=last 2 versions',
             'sass-loader'
           ])
+        },
+        {
+          test: /\.(png|svg|woff|woff2|ttf|eot)$/,
+          loader: "url-loader"
         }
       ]
     },
