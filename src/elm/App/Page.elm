@@ -5,3 +5,4 @@ type Page
   | Counter
   | CounterPair
   | CounterList
+  | CounterListFancy

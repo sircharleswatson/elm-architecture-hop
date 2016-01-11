@@ -13,6 +13,7 @@ import Router.Update
 import Pages.Counter.View as CounterPage
 import Pages.CounterPair.View as CounterPairPage
 import Pages.CounterList.View as CounterListPage
+import Pages.CounterListFancy.View as CounterListFancyPage
 
 
 -- VIEW
@@ -53,6 +54,8 @@ navContent address model =
               [ text "CounterPair"]
           , a [ onClick routerAction (navigateTo "/counter-list"), classList (activeClass Page.CounterList) ]
               [ text "CounterList"]
+          , a [ onClick routerAction (navigateTo "/counter-list-fancy"), classList (activeClass Page.CounterListFancy) ]
+              [ text "CounterListFancy"]
           ]
       ]
 
@@ -85,6 +88,12 @@ mainContent address model =
       in
         CounterListPage.view counterListPageAddress model.counterList
 
+    Page.CounterListFancy ->
+      let counterListFancyPageAddress =
+        Signal.forwardTo address App.Update.CounterListFancy
+      in
+        CounterListFancyPage.view counterListFancyPageAddress model.counterListFancy
+
 
 appState : Signal.Address Action -> Model -> Html
 appState address model =
@@ -99,6 +108,10 @@ appState address model =
       , pre [] [ text ("counterList = {")]
       , pre [] [ text ("  counters = " ++ (toString model.counterList.counters)) ]
       , pre [] [ text ("  nextID = " ++ (toString model.counterList.nextID)) ]
+      , pre [] [ text ("}") ]
+      , pre [] [ text ("counterListFancy = {")]
+      , pre [] [ text ("  counters = " ++ (toString model.counterListFancy.counters)) ]
+      , pre [] [ text ("  nextID = " ++ (toString model.counterListFancy.nextID)) ]
       , pre [] [ text ("}") ]
       , pre [] [ text ("router = {") ]
       , pre [] [ text ("  currentPage = " ++ (toString model.router.currentPage)) ]
