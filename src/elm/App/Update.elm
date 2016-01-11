@@ -5,6 +5,7 @@ import Effects exposing (Effects)
 import App.Model exposing (initialModel, Model)
 import Pages.Counter.Update exposing (Action)
 import Pages.CounterList.Update exposing (Action)
+import Pages.CounterListFancy.Update exposing (Action)
 import Pages.CounterPair.Update exposing (Action)
 import Router.Update as Router
 
@@ -16,6 +17,7 @@ type Action
   | CounterAction Pages.Counter.Update.Action
   | CounterPair Pages.CounterPair.Update.Action
   | CounterList Pages.CounterList.Update.Action
+  | CounterListFancy Pages.CounterListFancy.Update.Action
   | NoOp
 
 
@@ -61,6 +63,15 @@ update action model =
         updatedModel =
           { model
               | counterList = Pages.CounterList.Update.update subAction model.counterList
+          }
+      in
+        (updatedModel, Effects.none)
+
+    CounterListFancy subAction ->
+      let
+        updatedModel =
+          { model
+              | counterListFancy = Pages.CounterListFancy.Update.update subAction model.counterListFancy
           }
       in
         (updatedModel, Effects.none)
