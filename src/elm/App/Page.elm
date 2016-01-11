@@ -4,3 +4,4 @@ type Page
   = Main
   | Counter
   | CounterPair
+  | CounterList

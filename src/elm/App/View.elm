@@ -12,6 +12,7 @@ import Router.Update
 
 import Pages.Counter.View as CounterPage
 import Pages.CounterPair.View as CounterPairPage
+import Pages.CounterList.View as CounterListPage
 
 
 -- VIEW
@@ -50,6 +51,8 @@ navContent address model =
               [ text "Counter"]
           , a [ onClick routerAction (navigateTo "/counter-pair"), classList (activeClass Page.CounterPair) ]
               [ text "CounterPair"]
+          , a [ onClick routerAction (navigateTo "/counter-list"), classList (activeClass Page.CounterList) ]
+              [ text "CounterList"]
           ]
       ]
 
@@ -76,6 +79,12 @@ mainContent address model =
       in    
         CounterPairPage.view counterPairPageAddress model.counterPair
 
+    Page.CounterList ->
+      let counterListPageAddress =
+        Signal.forwardTo address App.Update.CounterList
+      in
+        CounterListPage.view counterListPageAddress model.counterList
+
 
 appState : Signal.Address Action -> Model -> Html
 appState address model =
@@ -86,6 +95,10 @@ appState address model =
       , pre [] [ text ("counterPair = {") ]
       , pre [] [ text ("  topCounter = " ++ (toString model.counterPair.topCounter)) ]
       , pre [] [ text ("  bottomCounter = " ++ (toString model.counterPair.bottomCounter)) ]
+      , pre [] [ text ("}") ]
+      , pre [] [ text ("counterList = {")]
+      , pre [] [ text ("  counters = " ++ (toString model.counterList.counters)) ]
+      , pre [] [ text ("  nextID = " ++ (toString model.counterList.nextID)) ]
       , pre [] [ text ("}") ]
       , pre [] [ text ("router = {") ]
       , pre [] [ text ("  currentPage = " ++ (toString model.router.currentPage)) ]

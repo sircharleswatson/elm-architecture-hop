@@ -12,6 +12,7 @@ type Action
   | ShowMain Hop.Payload
   | ShowCounter Hop.Payload
   | ShowCounterPair Hop.Payload
+  | ShowCounterList Hop.Payload
   | ShowNotFound Hop.Payload
 
 
@@ -28,6 +29,9 @@ update action model =
 
     ShowCounterPair payload ->
       ({ model | currentPage = Page.CounterPair, routerPayload = payload }, Effects.none)
+
+    ShowCounterList payload ->
+      ({ model | currentPage = Page.CounterList, routerPayload = payload }, Effects.none)
 
     _ ->
       (model, Effects.none)
@@ -46,4 +50,5 @@ routes =
   [ ("/", ShowMain)
   , ("/counter", ShowCounter)
   , ("/counter-pair", ShowCounterPair)
+  , ("/counter-list", ShowCounterList)
   ]
