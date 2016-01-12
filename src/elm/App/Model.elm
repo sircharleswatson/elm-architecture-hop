@@ -1,10 +1,12 @@
 module App.Model where
 
-import Router.Model as Router
 import Counter.Model as Counter
 import CounterPair.Model as CounterPair
 import CounterList.Model as CounterList
 import CounterListFancy.Model as CounterListFancy
+import RandomGIF.Update as RandomGIF
+import RandomGIF.Model
+import Router.Model as Router
 
 
 type alias Model =
@@ -13,6 +15,7 @@ type alias Model =
   , counterPair : CounterPair.Model
   , counterList : CounterList.Model
   , counterListFancy : CounterListFancy.Model
+  , randomGIF : RandomGIF.Model.Model
   }
 
 
@@ -23,4 +26,5 @@ initialModel =
   , counterPair = (CounterPair.init 0 0)
   , counterList = CounterList.init
   , counterListFancy = CounterListFancy.init
+  , randomGIF = RandomGIF.initialModel "funny cats"
   }
