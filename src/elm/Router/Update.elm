@@ -14,7 +14,8 @@ type Action
   | ShowCounterPair Hop.Payload
   | ShowCounterList Hop.Payload
   | ShowCounterListFancy Hop.Payload
-  | ShowRandomGIF Hop.Payload
+  | ShowRandomGif Hop.Payload
+  | ShowRandomGifPair Hop.Payload
   | ShowNotFound Hop.Payload
 
 
@@ -38,8 +39,11 @@ update action model =
     ShowCounterListFancy payload ->
       ({ model | currentPage = Page.CounterListFancy, routerPayload = payload }, Effects.none)
 
-    ShowRandomGIF payload ->
-      ({ model | currentPage = Page.RandomGIF, routerPayload = payload }, Effects.none)
+    ShowRandomGif payload ->
+      ({ model | currentPage = Page.RandomGif, routerPayload = payload }, Effects.none)
+
+    ShowRandomGifPair payload ->
+      ({ model | currentPage = Page.RandomGifPair, routerPayload = payload }, Effects.none)
 
     _ ->
       (model, Effects.none)
@@ -60,5 +64,6 @@ routes =
   , ("/counter-pair", ShowCounterPair)
   , ("/counter-list", ShowCounterList)
   , ("/counter-list-fancy", ShowCounterListFancy)
-  , ("/random-gif", ShowRandomGIF)
+  , ("/random-gif", ShowRandomGif)
+  , ("/random-gif-pair", ShowRandomGifPair)
   ]

@@ -1,11 +1,11 @@
-module RandomGIF.Update where
+module RandomGif.Update where
 
 import Effects exposing (Effects)
 import Http
 import Json.Decode as Json
 import Task
 
-import RandomGIF.Model exposing (Model)
+import RandomGif.Model exposing (Model)
 
 
 init : String -> (Model, Effects Action)
@@ -16,7 +16,7 @@ init topic =
 
 initialModel : String -> Model
 initialModel topic = 
-  { topic = "funny cats"
+  { topic = topic
   , gifUrl = "assets/waiting.gif"
   }
 

@@ -7,7 +7,8 @@ import Pages.Counter.Update exposing (Action)
 import Pages.CounterList.Update exposing (Action)
 import Pages.CounterListFancy.Update exposing (Action)
 import Pages.CounterPair.Update exposing (Action)
-import Pages.RandomGIF.Update exposing (Action)
+import Pages.RandomGif.Update exposing (Action)
+import Pages.RandomGifPair.Update exposing (Action)
 import Router.Update as Router
 
 
@@ -19,13 +20,14 @@ type Action
   | CounterPair Pages.CounterPair.Update.Action
   | CounterList Pages.CounterList.Update.Action
   | CounterListFancy Pages.CounterListFancy.Update.Action
-  | RandomGIF Pages.RandomGIF.Update.Action
+  | RandomGif Pages.RandomGif.Update.Action
+  | RandomGifPair Pages.RandomGifPair.Update.Action
   | NoOp
 
 
 initialEffects : List (Effects Action)
 initialEffects =
-  [ Effects.map RandomGIF <| (Pages.RandomGIF.Update.init "funny cats") ]
+  [ Effects.map RandomGif <| (Pages.RandomGif.Update.init "funny dogs") ]
 
 init : (Model, Effects Action)
 init =
@@ -84,11 +86,17 @@ update action model =
       in
         (updatedModel, Effects.none)
 
-    RandomGIF subAction ->
+    RandomGif subAction ->
       let
-        (updatedModel, updatedEffects) = Pages.RandomGIF.Update.update subAction model.randomGIF
+        (updatedModel, updatedEffects) = Pages.RandomGif.Update.update subAction model.randomGif
       in
-        ( { model | randomGIF = updatedModel }, Effects.map RandomGIF updatedEffects)
+        ( { model | randomGif = updatedModel }, Effects.map RandomGif updatedEffects)
+
+    RandomGifPair subAction ->
+      let
+        (updatedModel, updatedEffects) = Pages.RandomGifPair.Update.update subAction model.randomGifPair
+      in
+        ( { model | randomGifPair = updatedModel }, Effects.map RandomGifPair updatedEffects)
 
     _ ->
       (model, Effects.none)

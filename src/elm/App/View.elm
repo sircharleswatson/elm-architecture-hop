@@ -14,7 +14,8 @@ import Pages.Counter.View as CounterPage
 import Pages.CounterPair.View as CounterPairPage
 import Pages.CounterList.View as CounterListPage
 import Pages.CounterListFancy.View as CounterListFancyPage
-import Pages.RandomGIF.View as RandomGIFPage
+import Pages.RandomGif.View as RandomGifPage
+import Pages.RandomGifPair.View as RandomGifPairPage
 
 
 -- VIEW
@@ -57,8 +58,10 @@ navContent address model =
               [ text "CounterList"]
           , a [ onClick routerAction (navigateTo "/counter-list-fancy"), classList (activeClass Page.CounterListFancy) ]
               [ text "CounterListFancy"]
-          , a [ onClick routerAction (navigateTo "/random-gif"), classList (activeClass Page.RandomGIF) ]
-              [ text "RandomGIF"]    
+          , a [ onClick routerAction (navigateTo "/random-gif"), classList (activeClass Page.RandomGif) ]
+              [ text "RandomGif"]
+          , a [ onClick routerAction (navigateTo "/random-gif-pair"), classList (activeClass Page.RandomGifPair) ]
+              [ text "RandomGifPair"]
           ]
       ]
 
@@ -97,11 +100,17 @@ mainContent address model =
       in
         CounterListFancyPage.view counterListFancyPageAddress model.counterListFancy
 
-    Page.RandomGIF ->
-      let randomGIFPageAddress =
-        Signal.forwardTo address App.Update.RandomGIF
+    Page.RandomGif ->
+      let randomGifPageAddress =
+        Signal.forwardTo address App.Update.RandomGif
       in 
-        RandomGIFPage.view randomGIFPageAddress model.randomGIF
+        RandomGifPage.view randomGifPageAddress model.randomGif
+
+    Page.RandomGifPair ->
+      let randomGifPairPageAddress =
+        Signal.forwardTo address App.Update.RandomGifPair
+      in 
+        RandomGifPairPage.view randomGifPairPageAddress model.randomGifPair
 
 
 appState : Signal.Address Action -> Model -> Html
@@ -122,9 +131,17 @@ appState address model =
       , pre [] [ text ("  counters = " ++ (toString model.counterListFancy.counters)) ]
       , pre [] [ text ("  nextID = " ++ (toString model.counterListFancy.nextID)) ]
       , pre [] [ text ("}") ]
-      , pre [] [ text ("randomGIF = {") ]
-      , pre [] [ text ("  topic = " ++ (toString model.randomGIF.topic)) ]
-      , pre [] [ text ("  gifUrl = " ++ (toString model.randomGIF.gifUrl)) ]
+      , pre [] [ text ("randomGif = {") ]
+      , pre [] [ text ("  topic = " ++ (toString model.randomGif.topic)) ]
+      , pre [] [ text ("  gifUrl = " ++ (toString model.randomGif.gifUrl)) ]
+      , pre [] [ text ("}") ]
+      , pre [] [ text ("randomGifPair = {") ]
+      , pre [] [ text ("  left = {" ++ (toString model.randomGifPair.left)) ]
+      , pre [] [ text ("    topic = " ++ (toString model.randomGifPair.left.topic)) ]
+      , pre [] [ text ("  }") ]
+      , pre [] [ text ("  right = {" ++ (toString model.randomGifPair.right)) ]
+      , pre [] [ text ("    topic = " ++ (toString model.randomGifPair.right.topic)) ]
+      , pre [] [ text ("  }") ]
       , pre [] [ text ("}") ]
       , pre [] [ text ("router = {") ]
       , pre [] [ text ("  currentPage = " ++ (toString model.router.currentPage)) ]

@@ -1,4 +1,4 @@
-module RandomGIF.Model where
+module RandomGif.Model where
 
 
 type alias Model =

@@ -4,8 +4,11 @@ import Counter.Model as Counter
 import CounterPair.Model as CounterPair
 import CounterList.Model as CounterList
 import CounterListFancy.Model as CounterListFancy
-import RandomGIF.Update as RandomGIF
-import RandomGIF.Model
+import RandomGif.Model
+import RandomGif.Update as RandomGif
+import RandomGifPair.Model
+import RandomGifPair.Update as RandomGifPair
+
 import Router.Model as Router
 
 
@@ -15,7 +18,8 @@ type alias Model =
   , counterPair : CounterPair.Model
   , counterList : CounterList.Model
   , counterListFancy : CounterListFancy.Model
-  , randomGIF : RandomGIF.Model.Model
+  , randomGif : RandomGif.Model.Model
+  , randomGifPair : RandomGifPair.Model.Model
   }
 
 
@@ -26,5 +30,6 @@ initialModel =
   , counterPair = (CounterPair.init 0 0)
   , counterList = CounterList.init
   , counterListFancy = CounterListFancy.init
-  , randomGIF = RandomGIF.initialModel "funny cats"
+  , randomGif = RandomGif.initialModel "funny cats"
+  , randomGifPair = (RandomGifPair.initialModel "funny cats" "funny dogs")
   }
