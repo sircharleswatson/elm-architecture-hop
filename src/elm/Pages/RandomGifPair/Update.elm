@@ -2,7 +2,7 @@ module Pages.RandomGifPair.Update where
 
 import Effects exposing (Effects)
 
-import RandomGifPair.Model exposing (Model)
+import Pages.RandomGifPair.Model exposing (initialModel, Model)
 import RandomGifPair.Update
 
 
@@ -10,7 +10,13 @@ type Action
   = RandomGifPair RandomGifPair.Update.Action
 
 
-
+init : (Model, Effects Action)
+init = 
+  let
+    (childModel, childEffects) =
+      RandomGifPair.Update.init initialModel.left.topic initialModel.right.topic
+  in
+    (childModel, Effects.map RandomGifPair childEffects)
 
 
 update : Action -> Model -> (Model, Effects Action)

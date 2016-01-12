@@ -84,31 +84,31 @@ mainContent address model =
     Page.CounterPair ->
       let
         counterPairPageAddress =
-          Signal.forwardTo address App.Update.CounterPair
+          Signal.forwardTo address App.Update.CounterPairAction
       in    
         CounterPairPage.view counterPairPageAddress model.counterPair
 
     Page.CounterList ->
       let counterListPageAddress =
-        Signal.forwardTo address App.Update.CounterList
+        Signal.forwardTo address App.Update.CounterListAction
       in
         CounterListPage.view counterListPageAddress model.counterList
 
     Page.CounterListFancy ->
       let counterListFancyPageAddress =
-        Signal.forwardTo address App.Update.CounterListFancy
+        Signal.forwardTo address App.Update.CounterListFancyAction
       in
         CounterListFancyPage.view counterListFancyPageAddress model.counterListFancy
 
     Page.RandomGif ->
       let randomGifPageAddress =
-        Signal.forwardTo address App.Update.RandomGif
+        Signal.forwardTo address App.Update.RandomGifAction
       in 
         RandomGifPage.view randomGifPageAddress model.randomGif
 
     Page.RandomGifPair ->
       let randomGifPairPageAddress =
-        Signal.forwardTo address App.Update.RandomGifPair
+        Signal.forwardTo address App.Update.RandomGifPairAction
       in 
         RandomGifPairPage.view randomGifPairPageAddress model.randomGifPair
 
@@ -136,10 +136,10 @@ appState address model =
       , pre [] [ text ("  gifUrl = " ++ (toString model.randomGif.gifUrl)) ]
       , pre [] [ text ("}") ]
       , pre [] [ text ("randomGifPair = {") ]
-      , pre [] [ text ("  left = {" ++ (toString model.randomGifPair.left)) ]
+      , pre [] [ text ("  left = {")]
       , pre [] [ text ("    topic = " ++ (toString model.randomGifPair.left.topic)) ]
       , pre [] [ text ("  }") ]
-      , pre [] [ text ("  right = {" ++ (toString model.randomGifPair.right)) ]
+      , pre [] [ text ("  right = {") ]
       , pre [] [ text ("    topic = " ++ (toString model.randomGifPair.right.topic)) ]
       , pre [] [ text ("  }") ]
       , pre [] [ text ("}") ]

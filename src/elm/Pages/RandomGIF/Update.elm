@@ -2,7 +2,7 @@ module Pages.RandomGif.Update where
 
 import Effects exposing (Effects)
 
-import RandomGif.Model exposing (Model)
+import Pages.RandomGif.Model exposing (initialModel, Model)
 import RandomGif.Update exposing (Action)
 
 
@@ -10,12 +10,13 @@ type Action
   = RandomGif RandomGif.Update.Action
 
 
-init : String -> Effects Action
-init topic = 
+init : (Model, Effects Action)
+init = 
   let
-    (newModel, newEffects) = RandomGif.Update.init topic
+    (childModel, childEffects) =
+      RandomGif.Update.init initialModel.topic
   in
-    Effects.map RandomGif newEffects
+    (childModel, Effects.map RandomGif childEffects)
 
 
 update : Action -> Model -> (Model, Effects Action)
