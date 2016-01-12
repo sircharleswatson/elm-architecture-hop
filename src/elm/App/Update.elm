@@ -7,7 +7,8 @@ import Pages.Counter.Update exposing (Action)
 import Pages.CounterList.Update exposing (Action)
 import Pages.CounterListFancy.Update exposing (Action)
 import Pages.CounterPair.Update exposing (Action)
-import Pages.RandomGIF.Update exposing (Action)
+import Pages.RandomGif.Update exposing (Action)
+import Pages.RandomGifPair.Update exposing (Action)
 import Router.Update as Router
 
 
@@ -16,16 +17,19 @@ import Router.Update as Router
 type Action
   = RouterAction Router.Action
   | CounterAction Pages.Counter.Update.Action
-  | CounterPair Pages.CounterPair.Update.Action
-  | CounterList Pages.CounterList.Update.Action
-  | CounterListFancy Pages.CounterListFancy.Update.Action
-  | RandomGIF Pages.RandomGIF.Update.Action
+  | CounterPairAction Pages.CounterPair.Update.Action
+  | CounterListAction Pages.CounterList.Update.Action
+  | CounterListFancyAction Pages.CounterListFancy.Update.Action
+  | RandomGifAction Pages.RandomGif.Update.Action
+  | RandomGifPairAction Pages.RandomGifPair.Update.Action
   | NoOp
 
 
 initialEffects : List (Effects Action)
 initialEffects =
-  [ Effects.map RandomGIF <| (Pages.RandomGIF.Update.init "funny cats") ]
+  [ Effects.map RandomGifAction <| snd Pages.RandomGif.Update.init
+  , Effects.map RandomGifPairAction <| snd Pages.RandomGifPair.Update.init
+  ]
 
 init : (Model, Effects Action)
 init =
@@ -39,7 +43,8 @@ update action model =
   case action of
     RouterAction subAction ->
       let
-        (updatedRouter, fx) = Router.update subAction model.router
+        (updatedRouter, fx) = 
+          Router.update subAction model.router
 
         updatedModel =
           { model
@@ -50,45 +55,69 @@ update action model =
 
     CounterAction subAction ->
       let
-        updatedModel =
-          { model
-              | counter = Pages.Counter.Update.update subAction model.counter
+        (childModel, childEffects) =
+          Pages.Counter.Update.update subAction model.counter
+      in
+        ( { model
+              | counter = childModel
           }
-      in
-        (updatedModel, Effects.none)
+        , Effects.map CounterAction childEffects
+        )
 
-    CounterPair subAction ->
+    CounterPairAction subAction ->
       let
-        updatedModel =
-          { model
-              | counterPair = Pages.CounterPair.Update.update subAction model.counterPair
+        (childModel, childEffects) =
+          Pages.CounterPair.Update.update subAction model.counterPair
+      in
+        ( { model
+              | counterPair = childModel
           }
-      in
-        (updatedModel, Effects.none)
+        , Effects.map CounterPairAction childEffects
+        )
 
-    CounterList subAction ->
+    CounterListAction subAction ->
       let
-        updatedModel =
-          { model
-              | counterList = Pages.CounterList.Update.update subAction model.counterList
+        (childModel, childEffects) =
+          Pages.CounterList.Update.update subAction model.counterList
+      in
+        ( { model
+              | counterList = childModel
           }
-      in
-        (updatedModel, Effects.none)
+        , Effects.map CounterListAction childEffects
+        )
 
-    CounterListFancy subAction ->
+    CounterListFancyAction subAction ->
       let
-        updatedModel =
-          { model
-              | counterListFancy = Pages.CounterListFancy.Update.update subAction model.counterListFancy
+        (childModel, childEffects) =
+          Pages.CounterListFancy.Update.update subAction model.counterListFancy
+      in
+        ( { model
+              | counterListFancy = childModel
           }
-      in
-        (updatedModel, Effects.none)
+        , Effects.map CounterListFancyAction childEffects
+        )
 
-    RandomGIF subAction ->
+    RandomGifAction subAction ->
       let
-        (updatedModel, updatedEffects) = Pages.RandomGIF.Update.update subAction model.randomGIF
+        (childModel, childEffects) =
+          Pages.RandomGif.Update.update subAction model.randomGif
       in
-        ( { model | randomGIF = updatedModel }, Effects.map RandomGIF updatedEffects)
+        ( { model 
+              | randomGif = childModel
+          }
+        , Effects.map RandomGifAction childEffects
+        )
+
+    RandomGifPairAction subAction ->
+      let
+        (childModel, childEffects) =
+          Pages.RandomGifPair.Update.update subAction model.randomGifPair
+      in
+        ( { model
+              | randomGifPair = childModel
+          }
+        , Effects.map RandomGifPairAction childEffects
+        )
 
     _ ->
       (model, Effects.none)

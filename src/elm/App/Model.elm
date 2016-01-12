@@ -1,11 +1,12 @@
 module App.Model where
 
-import Counter.Model as Counter
-import CounterPair.Model as CounterPair
-import CounterList.Model as CounterList
-import CounterListFancy.Model as CounterListFancy
-import RandomGIF.Update as RandomGIF
-import RandomGIF.Model
+import Pages.Counter.Model as Counter exposing (initialModel, Model)
+import Pages.CounterPair.Model as CounterPair exposing (initialModel, Model)
+import Pages.CounterList.Model as CounterList exposing (initialModel, Model)
+import Pages.CounterListFancy.Model as CounterListFancy exposing (initialModel, Model)
+import Pages.RandomGif.Model as RandomGif exposing (initialModel, Model)
+import Pages.RandomGifPair.Model as RandomGifPair exposing (initialModel, Model)
+
 import Router.Model as Router
 
 
@@ -15,16 +16,18 @@ type alias Model =
   , counterPair : CounterPair.Model
   , counterList : CounterList.Model
   , counterListFancy : CounterListFancy.Model
-  , randomGIF : RandomGIF.Model.Model
+  , randomGif : RandomGif.Model
+  , randomGifPair : RandomGifPair.Model
   }
 
 
 initialModel : Model
 initialModel =
   { router = Router.initialModel
-  , counter = (Counter.init 0)
-  , counterPair = (CounterPair.init 0 0)
-  , counterList = CounterList.init
-  , counterListFancy = CounterListFancy.init
-  , randomGIF = RandomGIF.initialModel "funny cats"
+  , counter = Counter.initialModel
+  , counterPair = CounterPair.initialModel
+  , counterList = CounterList.initialModel
+  , counterListFancy = CounterListFancy.initialModel
+  , randomGif = RandomGif.initialModel
+  , randomGifPair = RandomGifPair.initialModel
   }
