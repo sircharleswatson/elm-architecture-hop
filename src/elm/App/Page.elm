@@ -6,3 +6,4 @@ type Page
   | CounterPair
   | CounterList
   | CounterListFancy
+  | RandomGIF

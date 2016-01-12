@@ -14,6 +14,7 @@ type Action
   | ShowCounterPair Hop.Payload
   | ShowCounterList Hop.Payload
   | ShowCounterListFancy Hop.Payload
+  | ShowRandomGIF Hop.Payload
   | ShowNotFound Hop.Payload
 
 
@@ -37,6 +38,9 @@ update action model =
     ShowCounterListFancy payload ->
       ({ model | currentPage = Page.CounterListFancy, routerPayload = payload }, Effects.none)
 
+    ShowRandomGIF payload ->
+      ({ model | currentPage = Page.RandomGIF, routerPayload = payload }, Effects.none)
+
     _ ->
       (model, Effects.none)
 
@@ -56,4 +60,5 @@ routes =
   , ("/counter-pair", ShowCounterPair)
   , ("/counter-list", ShowCounterList)
   , ("/counter-list-fancy", ShowCounterListFancy)
+  , ("/random-gif", ShowRandomGIF)
   ]
