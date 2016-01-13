@@ -6,6 +6,8 @@ import Pages.CounterList.Model as CounterList exposing (initialModel, Model)
 import Pages.CounterListFancy.Model as CounterListFancy exposing (initialModel, Model)
 import Pages.RandomGif.Model as RandomGif exposing (initialModel, Model)
 import Pages.RandomGifPair.Model as RandomGifPair exposing (initialModel, Model)
+import Pages.RandomGifList.Model as RandomGifList exposing (initialModel, Model)
+import Pages.SpinSquarePair.Model as SpinSquarePair exposing (initialModel, Model)
 
 import Router.Model as Router
 
@@ -18,6 +20,8 @@ type alias Model =
   , counterListFancy : CounterListFancy.Model
   , randomGif : RandomGif.Model
   , randomGifPair : RandomGifPair.Model
+  , randomGifList : RandomGifList.Model
+  , spinSquarePair : SpinSquarePair.Model
   }
 
 
@@ -30,4 +34,6 @@ initialModel =
   , counterListFancy = CounterListFancy.initialModel
   , randomGif = RandomGif.initialModel
   , randomGifPair = RandomGifPair.initialModel
+  , randomGifList = RandomGifList.initialModel
+  , spinSquarePair = SpinSquarePair.initialModel
   }

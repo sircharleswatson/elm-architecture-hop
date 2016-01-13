@@ -16,6 +16,8 @@ import Pages.CounterList.View as CounterListPage
 import Pages.CounterListFancy.View as CounterListFancyPage
 import Pages.RandomGif.View as RandomGifPage
 import Pages.RandomGifPair.View as RandomGifPairPage
+import Pages.RandomGifList.View as RandomGifListPage
+import Pages.SpinSquarePair.View as SpinSquarePairPage
 
 
 -- VIEW
@@ -25,9 +27,9 @@ view address model =
   div [ class "ui grid container" ]
     [ div [ class "sixteen wide column" ]
         [ navContent address model ]
-    , div [ class "four wide column" ]
+    , div [ class "five wide column" ]
         [ appState address model ]
-    , div [ class "twelve wide column" ]
+    , div [ class "ui eleven wide column grid" ]
         [ mainContent address model ]
     ]
 
@@ -62,6 +64,10 @@ navContent address model =
               [ text "RandomGif"]
           , a [ onClick routerAction (navigateTo "/random-gif-pair"), classList (activeClass Page.RandomGifPair) ]
               [ text "RandomGifPair"]
+          , a [ onClick routerAction (navigateTo "/random-gif-list"), classList (activeClass Page.RandomGifList) ]
+              [ text "RandomGifList"]
+          , a [ onClick routerAction (navigateTo "/spin-square-pair"), classList (activeClass Page.SpinSquarePair) ]
+              [ text "SpinSquarePair"]
           ]
       ]
 
@@ -70,9 +76,8 @@ mainContent : Signal.Address Action -> Model -> Html
 mainContent address model =
   case model.router.currentPage of
     Page.Main ->
-      div [] [
-        text "Main"
-      ]
+      div [ class "ui sixteen wide column grid" ]
+        [ text "Main" ]
 
     Page.Counter ->
       let
@@ -112,13 +117,28 @@ mainContent address model =
       in 
         RandomGifPairPage.view randomGifPairPageAddress model.randomGifPair
 
+    Page.RandomGifList ->
+      let randomGifListPageAddress =
+        Signal.forwardTo address App.Update.RandomGifListAction
+      in
+        RandomGifListPage.view randomGifListPageAddress model.randomGifList
+
+    Page.SpinSquarePair ->
+      let spinSquarePairPageAddress =
+        Signal.forwardTo address App.Update.SpinSquarePairAction
+      in
+        SpinSquarePairPage.view spinSquarePairPageAddress model.spinSquarePair
+
 
 appState : Signal.Address Action -> Model -> Html
 appState address model =
   div [ class "ui secondary segment" ]
     [ h2 [ class "ui header" ] [ text "App State" ]
     , code []
-      [ pre [] [ text ("counter = " ++ (toString model.counter)) ]
+      [ pre [] [ text ("router = {") ]
+      , pre [] [ text ("  currentPage = " ++ (toString model.router.currentPage)) ]
+      , pre [] [ text ("}") ]
+      , pre [] [ text ("counter = " ++ (toString model.counter)) ]
       , pre [] [ text ("counterPair = {") ]
       , pre [] [ text ("  topCounter = " ++ (toString model.counterPair.topCounter)) ]
       , pre [] [ text ("  bottomCounter = " ++ (toString model.counterPair.bottomCounter)) ]
@@ -143,8 +163,20 @@ appState address model =
       , pre [] [ text ("    topic = " ++ (toString model.randomGifPair.right.topic)) ]
       , pre [] [ text ("  }") ]
       , pre [] [ text ("}") ]
-      , pre [] [ text ("router = {") ]
-      , pre [] [ text ("  currentPage = " ++ (toString model.router.currentPage)) ]
+      , pre [] [ text ("randomGifList = {") ]
+      , pre [] [ text ("  topic =" ++ (toString model.randomGifList.topic))]
+      , pre [] [ text ("  gifList = " ++ (toString model.randomGifList.gifList)) ]
+      , pre [] [ text ("  uid = " ++ (toString model.randomGifList.uid)) ]
+      , pre [] [ text ("}") ]
+      , pre [] [ text ("spinSquarePair = {") ]
+      , pre [] [ text ("  left = {")]
+      , pre [] [ text ("    angle = " ++ (toString model.spinSquarePair.left.angle)) ]
+      , pre [] [ text ("    animationState = " ++ (toString model.spinSquarePair.left.animationState)) ]
+      , pre [] [ text ("  }") ]
+      , pre [] [ text ("  right = {") ]
+      , pre [] [ text ("    angle = " ++ (toString model.spinSquarePair.right.angle)) ]
+      , pre [] [ text ("    animationState = " ++ (toString model.spinSquarePair.right.animationState)) ]
+      , pre [] [ text ("  }") ]
       , pre [] [ text ("}") ]
       ]
     ]

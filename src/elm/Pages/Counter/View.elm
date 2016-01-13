@@ -14,8 +14,7 @@ view address model =
     counterAddress = 
       Signal.forwardTo address Pages.Counter.Update.Counter
   in
-    div []
+    div [ class "ui sixteen wide column grid" ]
       [ h1 [ class "ui header" ] [ text "Counter" ]
-      , div []
-          [ Counter.view counterAddress model ]
+      , Counter.view counterAddress model
       ]

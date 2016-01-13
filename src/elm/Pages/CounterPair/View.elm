@@ -11,9 +11,8 @@ import Pages.CounterPair.Update as Update exposing (Action)
 
 view : Signal.Address Action -> Model -> Html
 view address model =
-  div []
+  div [ class "ui sixteen wide column grid" ]
     [ h1 [ class "ui header" ]
         [ text "Counter Pair"]
-    , div []
-        [ CounterPair.view (Signal.forwardTo address Update.CounterPair) model ]
+    , CounterPair.view (Signal.forwardTo address Update.CounterPair) model
     ]

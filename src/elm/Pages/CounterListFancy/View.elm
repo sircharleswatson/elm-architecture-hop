@@ -12,9 +12,8 @@ import Pages.CounterListFancy.Update as Update exposing (Action)
 
 view : Signal.Address Action -> Model -> Html
 view address model =
-  div []
+  div [ class "ui sixteen wide column grid" ]
     [ h1 [ class "ui header" ] 
         [ text "Counter List - Fancy" ]
-    , div []
-        [ CounterListFancy.view (Signal.forwardTo address Update.CounterListFancy) model]
+    , CounterListFancy.view (Signal.forwardTo address Update.CounterListFancy) model
     ]

@@ -10,7 +10,7 @@ import RandomGifPair.Update exposing (Action)
 
 view : Signal.Address Action -> Model -> Html
 view address model =
-  div [ class "ui sixteen column grid" ]
+  div [ class "ui sixteen wide column grid" ]
     [ div [ class "ui eight wide column" ]
         [ RandomGif.view (Signal.forwardTo address RandomGifPair.Update.Left) model.left ]
     , div [ class "ui eight wide column" ]
