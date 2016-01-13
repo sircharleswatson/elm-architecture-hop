@@ -9,6 +9,8 @@ import Pages.CounterListFancy.Update exposing (Action)
 import Pages.CounterPair.Update exposing (Action)
 import Pages.RandomGif.Update exposing (Action)
 import Pages.RandomGifPair.Update exposing (Action)
+import Pages.RandomGifList.Update exposing (Action)
+import Pages.SpinSquarePair.Update exposing (Action)
 import Router.Update as Router
 
 
@@ -22,6 +24,8 @@ type Action
   | CounterListFancyAction Pages.CounterListFancy.Update.Action
   | RandomGifAction Pages.RandomGif.Update.Action
   | RandomGifPairAction Pages.RandomGifPair.Update.Action
+  | RandomGifListAction Pages.RandomGifList.Update.Action
+  | SpinSquarePairAction Pages.SpinSquarePair.Update.Action
   | NoOp
 
 
@@ -117,6 +121,28 @@ update action model =
               | randomGifPair = childModel
           }
         , Effects.map RandomGifPairAction childEffects
+        )
+
+    RandomGifListAction subAction ->
+      let
+        (childModel, childEffects) =
+          Pages.RandomGifList.Update.update subAction model.randomGifList
+      in
+        ( { model
+              | randomGifList = childModel
+          }
+        , Effects.map RandomGifListAction childEffects
+        )
+
+    SpinSquarePairAction subAction ->
+      let
+        (childModel, childEffects) =
+          Pages.SpinSquarePair.Update.update subAction model.spinSquarePair
+      in
+        ( { model
+              | spinSquarePair = childModel
+          }
+        , Effects.map SpinSquarePairAction childEffects
         )
 
     _ ->

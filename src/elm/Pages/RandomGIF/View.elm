@@ -15,9 +15,8 @@ view address model =
     randomGifAddress =
       Signal.forwardTo address Pages.RandomGif.Update.RandomGif
   in
-    div []
+    div [ class "ui sixteen wide column grid" ]
       [ h1 [ class "ui header"]
           [ text "Random GIF" ]
-      , div []
-          [ RandomGif.view randomGifAddress model ]
+      , RandomGif.view randomGifAddress model
       ]

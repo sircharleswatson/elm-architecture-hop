@@ -4,7 +4,7 @@ import Html exposing (Html, div, h1, text)
 import Html.Attributes exposing (class)
 
 import Pages.RandomGifPair.Update exposing (Action)
-import RandomGifPair.Model exposing (Model)
+import Pages.RandomGifPair.Model exposing (Model)
 import RandomGifPair.View as RandomGifPair exposing (view)
 
 
@@ -14,9 +14,8 @@ view address model =
     randomGifPairAddress =
       Signal.forwardTo address Pages.RandomGifPair.Update.RandomGifPair
   in
-    div []
+    div [ class "ui sixteen wide column grid" ]
       [ h1 [ class "ui header"]
           [ text "Random Gif Pair" ]
-      , div []
-          [ RandomGifPair.view randomGifPairAddress model ]
+      , RandomGifPair.view randomGifPairAddress model
       ]

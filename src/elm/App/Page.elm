@@ -8,3 +8,5 @@ type Page
   | CounterListFancy
   | RandomGif
   | RandomGifPair
+  | RandomGifList
+  | SpinSquarePair
